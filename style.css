@@ -76,7 +76,6 @@ body .mainBox {
     justify-content: space-between;
     flex-wrap: wrap;
     height: 83%;
-    padding: 10px;
     overflow-y: scroll;
 }
 
