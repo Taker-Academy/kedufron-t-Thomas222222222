@@ -18,7 +18,7 @@ html, body {
 body {
     box-sizing: border-box;
     border-radius: 10px;
-    padding: 20px 8vw;
+    padding: 20px 6vw;
 }
 
 body .mainBox {
@@ -71,7 +71,12 @@ body .mainBox {
 
 /* Content */
 .contentPage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
     height: 83%;
+    padding: 10px;
     overflow-y: scroll;
 }
 
