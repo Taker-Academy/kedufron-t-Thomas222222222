@@ -51,6 +51,23 @@ body .mainBox {
     font-family: 'ProtestRiot-Regular';
 }
 
+.topPage .logo nav {
+    width: 20vw;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.topPage .logo nav a, i {
+    color: #93441A;
+}
+
+.topPage .logo nav a {
+    text-decoration: none;
+    font-family: 'ProtestRiot-Regular';
+    font-size: 22px;
+}
+
 /* Content */
 .contentPage {
     height: 83%;
