@@ -15,22 +15,8 @@ html, body {
     height: 100%;
 }
 
-body {
-    box-sizing: border-box;
-    border-radius: 10px;
-    padding: 20px 6vw;
-}
-
-body .mainBox {
-    border-radius: 10px;
-    height: 100%;
-    box-shadow: 0 0 10px rgba(128, 128, 128, 0.5);
-}
-
 /* Header */
 .topPage {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     background-color: #e5e7e6;
     margin: 0;
 }
@@ -73,20 +59,11 @@ body .mainBox {
 .contentPage {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    height: 83%;
-    overflow-y: scroll;
+    padding: 8px;
 }
 
 .contentPage::-webkit-scrollbar {
     display: none;
-}
-
-/* Footer */
-.bottomPage {
-    height: 50px;
-    background-color: #e5e7e6;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
