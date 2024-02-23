@@ -3,6 +3,7 @@
     src: url('../font/ProtestRiot-Regular.ttf');
 }
 
+/* CSS of api items */
 .item {
     width: 28%;
     margin-top: 15px;
@@ -10,6 +11,11 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s ease;
+}
+
+.item:hover {
+    transform: scale(1.04);
 }
 
 .item img {
@@ -25,6 +31,30 @@
     color: #93441A;
 }
 
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.info .bubble {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #93441A;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+.info .bubble i {
+    font-size: 12px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 7.5px;
+    margin-right: 7.5px;
+}
+
+/* Responsive of items */
 @media screen and (max-width: 1500px) {
     .item {
         width: 40%;
