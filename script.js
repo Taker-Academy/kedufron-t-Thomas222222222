@@ -1,5 +1,10 @@
 const url = "https://api.kedufront.juniortaker.com";
 
+/**
+ * Function to create container of element
+ * @param {number} id - Id of element
+ * @returns {HTMLDivElement}
+ */
 function createContainer(id) {
     const containerDiv = document.createElement('div');
 
@@ -7,6 +12,11 @@ function createContainer(id) {
     return containerDiv;
 }
 
+/**
+ * Function to create image element
+ * @param {number} imageNumber - Id of image linked to the element
+ * @returns {HTMLImageElement}
+ */
 function createImg(imageNumber) {
     const imgPlush = document.createElement('img');
 
@@ -14,6 +24,10 @@ function createImg(imageNumber) {
     return imgPlush;
 }
 
+/**
+ * Create container of info element
+ * @returns {HTMLDivElement}
+ */
 function createContainerInfo() {
     const containerInfo = document.createElement('div');
 
@@ -21,6 +35,12 @@ function createContainerInfo() {
     return containerInfo;
 }
 
+/**
+ * Create paragraphs of element
+ * @param {string} name - Name of element
+ * @param {number} price - Price of element
+ * @returns {HTMLParagraphElement}
+ */
 function createParagraph(name, price) {
     const containerParagraph = document.createElement('div');
     const nameParagraph = document.createElement('p');
@@ -28,13 +48,17 @@ function createParagraph(name, price) {
 
     containerParagraph.classList.add('description');
     nameParagraph.textContent = name;
-    priceParagraph.textContent = price.toFixed(2) + ' €';
+    priceParagraph.textContent = `${price.toFixed(2)} €`;
     containerParagraph.appendChild(nameParagraph);
     containerParagraph.appendChild(priceParagraph);
     return containerParagraph;
 }
 
-// Functions of bubble information
+/**
+ * Check if popUp is active
+ * @constructor
+ * @param {number} id
+ */
 function hidePopUp(id) {
     const popUp = document.querySelector(`.popup${id}`);
 
@@ -43,6 +67,17 @@ function hidePopUp(id) {
     }
 }
 
+/**
+ * Display popup with the item creation date
+ * @constructor
+ * @param {Object} item - JSON data
+ * @param {number} item._id - Id of object
+ * @param {string} item.createdIn - Object creation date
+ * @param {string} item.description - Description of object
+ * @param {string} item.image - Id of image
+ * @param {string} item.name - Object name
+ * @param {number} item.price - Object price
+ */
 function showPopUp(item) {
     const popup = document.createElement('div');
     var icon;
@@ -50,7 +85,7 @@ function showPopUp(item) {
     var popupRect;
 
     popup.classList.add(`popup${item._id}`);
-    popup.textContent = `Crée le ${item.createdIn}`;
+    popup.textContent = `Créé le ${item.createdIn}`;
 
     document.body.appendChild(popup);
 
@@ -66,6 +101,17 @@ function showPopUp(item) {
     document.body.appendChild(popup);
 }
 
+/**
+ * Create block of item
+ * @param {Object} item - JSON data
+ * @param {number} item._id - Id of object
+ * @param {string} item.createdIn - Object creation date
+ * @param {string} item.description - Description of object
+ * @param {string} item.image - Id of image
+ * @param {string} item.name - Object name
+ * @param {number} item.price - Object price
+ * @returns {HTMLDivElement}
+ */
 function createBubbleInfo(item) {
     const bubbleInfo = document.createElement('div');
     const Info = document.createElement('i');
@@ -78,12 +124,15 @@ function createBubbleInfo(item) {
         showPopUp(item);
     });
     bubbleInfo.addEventListener('mouseleave', () => {
-        hidePopUp(item._id)
+        hidePopUp(item._id);
     });
     return bubbleInfo;
 }
 
-// Function for displaying api elements
+/**
+ * Function to display data get with api
+ * @param {Object} items - JSON data
+ */
 function displayData(items) {
     const contentPage = document.querySelector('.productsPage');
 
@@ -102,7 +151,9 @@ function displayData(items) {
     });
 }
 
-// Function to get data of the api with request GET
+/**
+ * Function to get data of the api with request GET
+ */
 function getData() {
     var items;
 
