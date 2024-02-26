@@ -152,7 +152,7 @@ function displayData(items) {
 }
 
 /**
- * Function to get data of the api with request GET
+ * Function to get data of the api with request GET and axios
  */
 function getData() {
     var items;
