@@ -1,5 +1,3 @@
-const url = "https://api.kedufront.juniortaker.com";
-
 /**
  * Function to create container of element
  * @param {number} id - Id of element
@@ -150,21 +148,3 @@ function displayData(items) {
         contentPage.appendChild(containerDiv);
     });
 }
-
-/**
- * Function to get data of the api with request GET and axios
- */
-function getData() {
-    var items;
-
-    axios.get(url + "/item/")
-    .then(response => {
-        items = response.data;
-        displayData(items);
-    })
-    .catch(error => {
-        console.error("Error : " + error);
-    });
-}
-
-window.onload = getData();
