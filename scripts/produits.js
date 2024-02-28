@@ -1,12 +1,21 @@
 /**
  * Function to create container of element
- * @param {number} id - Id of element
+ * @param {Object} item - JSON data
+ * @param {number} item._id - Id of object
+ * @param {string} item.createdIn - Object creation date
+ * @param {string} item.description - Description of object
+ * @param {string} item.image - Id of image
+ * @param {string} item.name - Object name
+ * @param {number} item.price - Object price
  * @returns {HTMLDivElement}
  */
-function createContainer(id) {
+function createContainer(item) {
     const containerDiv = document.createElement('div');
 
-    containerDiv.classList.add(`item${id}`);
+    containerDiv.classList.add(`item${item._id}`);
+    containerDiv.addEventListener('click', function() {
+        specificsDetailsProduct(item);
+    });
     return containerDiv;
 }
 
@@ -130,12 +139,18 @@ function createBubbleInfo(item) {
 /**
  * Function to display data get with api
  * @param {Object} items - JSON data
+ * @param {number} item._id - Id of object
+ * @param {string} item.createdIn - Object creation date
+ * @param {string} item.description - Description of object
+ * @param {string} item.image - Id of image
+ * @param {string} item.name - Object name
+ * @param {number} item.price - Object price
  */
 function displayData(items) {
     const contentPage = document.querySelector('.productsPage');
 
     items.forEach(item => {
-        const containerDiv = createContainer(item._id);
+        const containerDiv = createContainer(item);
         const imgPlush = createImg(item.image);
         const containerInfo = createContainerInfo();
         const containerParagraph = createParagraph(item.name, item.price);
