@@ -14,6 +14,7 @@
     display: none;
 }
 
+/* Specific Product */
 .specificProduct {
     position: fixed;
     min-width: 800px;
@@ -39,3 +40,29 @@
     color: #93441A;
     margin: 0;
 }
+
+/* Top */
+.specificProduct .specificProductTop {
+    display: flex;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.specificProduct .specificProductTop i {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+.specificProduct .specificProductTop i:hover {
+    cursor: pointer;
+}
+
+/* Content */
+.specificProduct .specificProductContent {
+    display: flex;
+    place-content: center;
+}
+
+/* Bottom */

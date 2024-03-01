@@ -1,60 +1,48 @@
-function createContainerTop(name) {
-    const containerTop = document.createElement('div');
-    const nameText = document.createElement('h2');
-    const iconClosed = document.createElement('i');
+function addValuesContainerTop(name, containerContent, containerBottom) {
+    const nameText = document.querySelector('.titleProduct');
+    const iconClosed = document.querySelector('.fa-solid.fa-xmark');
 
-    containerTop.style.display = 'flex';
-    containerTop.style.padding = '10px';
     nameText.textContent = name;
-    iconClosed.className = 'fa-solid fa-xmark';
-    iconClosed.style.marginTop ='auto';
-    iconClosed.style.marginBottom = 'auto';
-    iconClosed.style.marginLeft = 'auto';
-    iconClosed.style.marginRight = '5px';
-    iconClosed.style.fontSize = '30px';
     iconClosed.addEventListener('click', function() {
-        console.log("L'icone a été clické !");
-    });
+        const specificProduct = document.querySelector('.specificProduct');
+        const specificProductContent = document.querySelector('.specificProductContent');
+        const specificProductBottom = document.querySelector('.specificProductBottom');
+        const blurBackground = document.querySelector('.blurBackground');
 
-    containerTop.appendChild(nameText);
-    containerTop.appendChild(iconClosed);
-    return containerTop;
+        blurBackground.style.display = 'none';
+        specificProduct.style.display = 'none';
+        while (specificProductContent.firstChild) {
+            specificProductContent.removeChild(specificProductContent.firstChild);
+        }
+        while (specificProductContent.firstChild) {
+            specificProductContent.removeChild(specificProductBottom.firstChild);
+        }
+    });
 }
 
-function createContainerContent(imageID) {
-    const containerContent = document.createElement('div');
+function addValuesContainerContent(imageID) {
+    containerContent = document.querySelector('.specificProductContent');
     const imgPlush = document.createElement('img');
-
-    containerContent.style.display = 'flex';
-    containerContent.style.placeContent = 'center';
 
     imgPlush.src = url + "/item/picture/" + imageID;
 
     containerContent.appendChild(imgPlush);
-    return containerContent;
 }
 
-function createContainerBottom() {
-    const containerBottom = document.createElement('div');
-
-    return containerBottom;
+function addValuesContainerBottom() {
+    containerBottom = document.querySelector('.specificProductBottom');
 }
 
 function specificsDetailsProduct(item) {
     const specificProductDiv = document.querySelector('.specificProduct');
     const blurBackgroundDiv = document.querySelector('.blurBackground');
 
-    const containerTop = createContainerTop(item.name);
-    const containerContent = createContainerContent(item.image);
-    const containerBottom = createContainerBottom();
-
     blurBackgroundDiv.style.display = 'block';
     specificProductDiv.style.display = 'flex';
     specificProductDiv.style.placeContent = 'center';
     specificProductDiv.style.flexDirection = 'column';
 
-
-    specificProductDiv.appendChild(containerTop);
-    specificProductDiv.appendChild(containerContent);
-    specificProductDiv.appendChild(containerBottom);
+    addValuesContainerTop(item.name);
+    addValuesContainerContent(item.image);
+    addValuesContainerBottom();
 }
