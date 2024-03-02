@@ -84,3 +84,24 @@ body {
 .contentPage .description-home {
     font-size: 18px;
 }
+
+/* Responsive */
+@media screen and (max-width: 700px) {
+    .topPage {
+        padding-bottom: 50px;
+    }
+
+    .topPage .logo {
+        place-content: center;
+    }
+
+    .topPage .logo h1 {
+        display: none;
+    }
+
+    .topPage .logo nav {
+        position: absolute;
+        top: 135px;
+        margin: 0;
+    }
+}
