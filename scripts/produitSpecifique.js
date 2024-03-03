@@ -29,7 +29,7 @@ function addValuesContainerContent(imageID) {
     containerContent.appendChild(imgPlush);
 }
 
-function addValuesContainerBottom(description, price, id) {
+function addValuesContainerBottom(description, price, id, name) {
     const containerBottom = document.querySelector('.specificProductBottom');
     const textDescription = document.createElement('p');
     const purchaseDiv = document.createElement('div');
@@ -44,6 +44,7 @@ function addValuesContainerBottom(description, price, id) {
     textPrice.textContent = `${price.toFixed(2)} €`;
     addButton.textContent = 'Ajouter au panier';
     addButton.addEventListener('click', function() {
+        alert(`${name} ajouté au panier`);
         addProductToCart(id);
     });
 
@@ -64,5 +65,5 @@ function specificsDetailsProduct(item) {
 
     addValuesContainerTop(item.name);
     addValuesContainerContent(item.image);
-    addValuesContainerBottom(item.description, item.price, item._id);
+    addValuesContainerBottom(item.description, item.price, item._id, item.name);
 }

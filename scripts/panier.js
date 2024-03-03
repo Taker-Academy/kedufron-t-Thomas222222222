@@ -1,3 +1,4 @@
+// Add product
 function createLocalStorage(_id) {
     var firstObject = [{id: _id, quantity: 1}];
 
@@ -39,5 +40,70 @@ function addProductToCart(id) {
         addProduct(id);
     } else {
         createLocalStorage(id);
+    }
+}
+
+// Display cart
+function createInfoProduct(productInfo, product) {
+    const dataDiv = document.createElement('div');
+    const buttonMinus = document.createElement('button');
+    const iconMinus = document.createElement('i');
+    const entryPrice = document.createElement('input');
+    const buttonPlus = document.createElement('button');
+    const iconPlus = document.createElement('i');
+    const RemoveIcon = document.createElement('i');
+
+    dataDiv.className = 'price';
+
+    iconMinus.className = 'fa-solid fa-minus';
+    buttonMinus.className = 'minus';
+    buttonMinus.appendChild(iconMinus);
+    buttonMinus.addEventListener('click', function() {
+        console.log("Remove one !");
+    });
+
+    entryPrice.value = product.quantity;
+
+    iconPlus.className = 'fa-solid fa-plus';
+    buttonPlus.className = 'plus';
+    buttonPlus.appendChild(iconPlus);
+    buttonPlus.addEventListener('click', function() {
+        console.log("Add one !");
+    });
+
+    RemoveIcon.className = 'fa-solid fa-xmark';
+
+    dataDiv.appendChild(buttonMinus);
+    dataDiv.appendChild(entryPrice);
+    dataDiv.appendChild(buttonPlus);
+    dataDiv.appendChild(RemoveIcon);
+    return dataDiv;
+}
+
+function displayProduct(productInfo, product) {
+    const mainContainer = document.querySelector('.cartPage');
+    const containerDiv = document.createElement('div');
+    const imgProduct = document.createElement('img');
+    const name = document.createElement('p');
+    const infoproductDiv = createInfoProduct(productInfo, product);
+
+    containerDiv.className = 'product';
+    imgProduct.src = url + '/item/picture/' + productInfo.image;
+    name.textContent = productInfo.name;
+
+    containerDiv.appendChild(imgProduct);
+    containerDiv.appendChild(name);
+    containerDiv.appendChild(infoproductDiv);
+    mainContainer.appendChild(containerDiv);
+}
+
+function displayCart() {
+    var storedProducts = JSON.parse(localStorage.getItem('cart'));
+
+    if (storedProducts === null) {
+        return;
+    }
+    for (var i = 0; i < storedProducts.length; i++) {
+        getSpecificProduct(storedProducts[i]);
     }
 }

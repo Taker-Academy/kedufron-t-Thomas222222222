@@ -1,0 +1,91 @@
+@font-face {
+    font-family: ProtestRiot-Regular;
+    src: url('../font/ProtestRiot-Regular.ttf');
+}
+
+.cartPage {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.cartPage h3 {
+    font-family: 'ProtestRiot-Regular';
+    font-size: 30px;
+    margin-top: 15px;
+    text-align: center;
+    color: #93441A;
+}
+
+.cartPage .product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #e5e7e6;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cartPage .product img {
+    height: 100px;
+    width: auto;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.cartPage .product p {
+    font-family: 'ProtestRiot-Regular';
+    font-size: 20px;
+    color: #93441A;
+    margin-left: 10px;
+}
+
+.cartPage .product .price {
+    display: flex;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.cartPage .product .price .plus {
+    background-color: #DAAB3A;
+    border: none;
+    padding: 8px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.cartPage .product .price .minus {
+    background-color: #DAAB3A;
+    border: none;
+    padding: 8px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.cartPage .product .price .minus, .plus:hover {
+    cursor: pointer;
+}
+
+.cartPage .product .price .minus i, .plus i {
+    color: black;
+}
+
+.cartPage .product .price input {
+    height: auto;
+    width: 50px;
+    text-align: center;
+}
+
+.cartPage .product .price .fa-xmark {
+    font-size: 25px;
+    color: black;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.cartPage .product .price .fa-xmark:hover {
+    cursor: pointer;
+}
