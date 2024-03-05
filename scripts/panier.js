@@ -44,6 +44,52 @@ function addProductToCart(id) {
 }
 
 // Display cart
+function removeQuantityOfProduct(productInfo) {
+    var storedProducts = JSON.parse(localStorage.getItem('cart'));
+    var inputPrice = document.querySelector('.entryQuantity' + productInfo._id);
+    var totalPrice = document.querySelector('.priceTotal' + productInfo._id);
+
+    for (var i = 0; i < storedProducts.length; i++) {
+        if (storedProducts[i].id === productInfo._id && storedProducts[i].quantity > 0) {
+            storedProducts[i].quantity -= 1;
+            inputPrice.value = storedProducts[i].quantity;
+            totalPrice.textContent = `${productInfo.price * storedProducts[i].quantity} €`;
+            break;
+        }
+    }
+    localStorage.setItem('cart', JSON.stringify(storedProducts));
+}
+
+function addQuantityOfProduct(productInfo) {
+    var storedProducts = JSON.parse(localStorage.getItem('cart'));
+    var inputPrice = document.querySelector('.entryQuantity' + productInfo._id);
+    var totalPrice = document.querySelector('.priceTotal' + productInfo._id);
+
+    for (var i = 0; i < storedProducts.length; i++) {
+        if (storedProducts[i].id === productInfo._id) {
+            storedProducts[i].quantity += 1;
+            inputPrice.value = storedProducts[i].quantity;
+            totalPrice.textContent = `${productInfo.price * storedProducts[i].quantity} €`;
+            break;
+        }
+    }
+    localStorage.setItem('cart', JSON.stringify(storedProducts));
+}
+
+function removeProductInCart(productInfo) {
+    var storedProducts = JSON.parse(localStorage.getItem('cart'));
+    var divToDelete = document.querySelector('.product' + productInfo._id);
+
+    for (var i = 0; i < storedProducts.length; i++) {
+        if (storedProducts[i].id === productInfo._id) {
+            divToDelete.parentNode.removeChild(divToDelete);
+            storedProducts.splice(i, 1);
+            break;
+        }
+    }
+    localStorage.setItem('cart', JSON.stringify(storedProducts));
+}
+
 function createInfoProduct(productInfo, product) {
     const dataDiv = document.createElement('div');
     const buttonMinus = document.createElement('button');
@@ -51,6 +97,7 @@ function createInfoProduct(productInfo, product) {
     const entryPrice = document.createElement('input');
     const buttonPlus = document.createElement('button');
     const iconPlus = document.createElement('i');
+    const price = document.createElement('p');
     const RemoveIcon = document.createElement('i');
 
     dataDiv.className = 'price';
@@ -59,23 +106,31 @@ function createInfoProduct(productInfo, product) {
     buttonMinus.className = 'minus';
     buttonMinus.appendChild(iconMinus);
     buttonMinus.addEventListener('click', function() {
-        console.log("Remove one !");
+        removeQuantityOfProduct(productInfo);
     });
 
+    entryPrice.className = 'entryQuantity' + productInfo._id;
     entryPrice.value = product.quantity;
 
     iconPlus.className = 'fa-solid fa-plus';
     buttonPlus.className = 'plus';
     buttonPlus.appendChild(iconPlus);
     buttonPlus.addEventListener('click', function() {
-        console.log("Add one !");
+        addQuantityOfProduct(productInfo);
     });
 
+    price.className = 'priceTotal' + productInfo._id;
+    price.textContent = `${productInfo.price * product.quantity} €`;
+
     RemoveIcon.className = 'fa-solid fa-xmark';
+    RemoveIcon.addEventListener('click', function() {
+        removeProductInCart(productInfo);
+    });
 
     dataDiv.appendChild(buttonMinus);
     dataDiv.appendChild(entryPrice);
     dataDiv.appendChild(buttonPlus);
+    dataDiv.appendChild(price);
     dataDiv.appendChild(RemoveIcon);
     return dataDiv;
 }
@@ -87,7 +142,7 @@ function displayProduct(productInfo, product) {
     const name = document.createElement('p');
     const infoproductDiv = createInfoProduct(productInfo, product);
 
-    containerDiv.className = 'product';
+    containerDiv.className = 'product' + productInfo._id;
     imgProduct.src = url + '/item/picture/' + productInfo.image;
     name.textContent = productInfo.name;
 

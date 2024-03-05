@@ -3,6 +3,7 @@
     src: url('../font/ProtestRiot-Regular.ttf');
 }
 
+/* Cart */
 .cartPage {
     margin-left: 50px;
     margin-right: 50px;
@@ -16,38 +17,39 @@
     color: #93441A;
 }
 
-.cartPage .product {
+.cartPage [class^='product'] {
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: #e5e7e6;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.cartPage .product img {
+.cartPage [class^='product'] img {
     height: 100px;
     width: auto;
     margin: 10px;
     border-radius: 10px;
 }
 
-.cartPage .product p {
+.cartPage [class^='product'] p {
     font-family: 'ProtestRiot-Regular';
     font-size: 20px;
     color: #93441A;
     margin-left: 10px;
 }
 
-.cartPage .product .price {
+.cartPage [class^='product'] .price {
     display: flex;
     margin-left: auto;
     margin-right: 20px;
 }
 
-.cartPage .product .price .plus {
+/* Cart add and remove quantities */
+.cartPage [class^='product'] .price .plus {
     background-color: #DAAB3A;
     border: none;
     padding: 8px;
@@ -55,7 +57,7 @@
     border-bottom-right-radius: 15px;
 }
 
-.cartPage .product .price .minus {
+.cartPage [class^='product'] .price .minus {
     background-color: #DAAB3A;
     border: none;
     padding: 8px;
@@ -63,21 +65,30 @@
     border-bottom-left-radius: 15px;
 }
 
-.cartPage .product .price .minus, .plus:hover {
+.cartPage [class^='product'] .price .minus, .plus:hover {
     cursor: pointer;
 }
 
-.cartPage .product .price .minus i, .plus i {
+.cartPage [class^='product'] .price .minus i, .plus i {
     color: black;
 }
 
-.cartPage .product .price input {
+.cartPage [class^='product'] .price input {
     height: auto;
     width: 50px;
     text-align: center;
 }
 
-.cartPage .product .price .fa-xmark {
+/* Total price */
+.cartPage [class^='product'] .price .priceTotal {
+    font-size: 22px;
+    margin-left: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* Delete product */
+.cartPage [class^='product'] .price .fa-xmark {
     font-size: 25px;
     color: black;
     margin-top: auto;
@@ -86,6 +97,6 @@
     margin-right: 10px;
 }
 
-.cartPage .product .price .fa-xmark:hover {
+.cartPage [class^='product'] .price .fa-xmark:hover {
     cursor: pointer;
 }
