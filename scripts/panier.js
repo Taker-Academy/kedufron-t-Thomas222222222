@@ -79,7 +79,7 @@ function addQuantityOfProduct(productInfo) {
 function removeProductInCart(productInfo) {
     var storedProducts = JSON.parse(localStorage.getItem('cart'));
     var divToDelete = document.querySelector('.product' + productInfo._id);
-    var divForm = document.querySelector('.formCart');
+    var divForm = document.querySelector('.summaryCart');
 
     for (var i = 0; i < storedProducts.length; i++) {
         if (storedProducts[i].id === productInfo._id) {
@@ -158,12 +158,43 @@ function displayForm(storedProducts, mainContainer)
 {
     const formContainer = document.createElement('div');
 
+    formContainer.className = 'summaryCart';
     if (storedProducts.length === 0) {
         return;
     }
     formContainer.innerHTML =
-        `<div class="formCart">
-            <p>Bonjour à tous</p>
+        `<div class="formContact">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" required>
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" required>
+            <label for="adresse">Adresse</label>
+            <input type="text" id="adresse" name="adresse" required>
+            <label for="rue">Nom de rue</label>
+            <input type="text" id="rue" name="rue" required>
+        </div>
+        <div class="orderSummary">
+            <div class="boxDetails">
+                <p class="cartTitle">Panier</p>
+                <p class="totalProductsPrice">${0} €</p>
+            </div>
+            <hr>
+            <div class="boxDetails">
+                <i class="fa-solid fa-shop"></i>
+                <p>Gratuit</p>
+            </div>
+            <div class="boxDetails">
+                <i class="fa-solid fa-truck"></i>
+                <p>Gratuit</p>
+            </div>
+            <hr>
+            <div class="boxDetails">
+                <p class="cartTitle">TOTAL</p>
+                <p class="totalProductsPrice">${0} €</p>
+            </div>
+            <button>Validation du panier</button>
         </div>`;
     mainContainer.appendChild(formContainer);
 }
