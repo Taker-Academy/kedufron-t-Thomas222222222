@@ -44,6 +44,26 @@ function addProductToCart(id) {
 }
 
 // Display cart
+function increaseTotalPrice(addPrice)
+{
+    var paragraphTotalPrice = document.querySelectorAll('.totalProductsPrice');
+    var actualPrice = parseInt(paragraphTotalPrice[0].textContent);
+
+    paragraphTotalPrice.forEach(paragraph => {
+        paragraph.textContent = `${actualPrice + addPrice} €`;
+    });
+}
+
+function reduceTotalPrice(removedPrice)
+{
+    var paragraphTotalPrice = document.querySelectorAll('.totalProductsPrice');
+    var actualPrice = parseInt(paragraphTotalPrice[0].textContent);
+
+    paragraphTotalPrice.forEach(paragraph => {
+        paragraph.textContent = `${actualPrice - removedPrice} €`;
+    });
+}
+
 function removeQuantityOfProduct(productInfo) {
     var storedProducts = JSON.parse(localStorage.getItem('cart'));
     var inputPrice = document.querySelector('.entryQuantity' + productInfo._id);
@@ -53,6 +73,7 @@ function removeQuantityOfProduct(productInfo) {
         if (storedProducts[i].id === productInfo._id && storedProducts[i].amount > 0) {
             storedProducts[i].amount -= 1;
             inputPrice.value = storedProducts[i].amount;
+            reduceTotalPrice(productInfo.price);
             totalPrice.textContent = `${productInfo.price * storedProducts[i].amount} €`;
             break;
         }
@@ -69,6 +90,7 @@ function addQuantityOfProduct(productInfo) {
         if (storedProducts[i].id === productInfo._id) {
             storedProducts[i].amount += 1;
             inputPrice.value = storedProducts[i].amount;
+            increaseTotalPrice(productInfo.price);
             totalPrice.textContent = `${productInfo.price * storedProducts[i].amount} €`;
             break;
         }
@@ -83,6 +105,7 @@ function removeProductInCart(productInfo) {
 
     for (var i = 0; i < storedProducts.length; i++) {
         if (storedProducts[i].id === productInfo._id) {
+            reduceTotalPrice(productInfo.price * storedProducts[i].amount);
             divToDelete.parentNode.removeChild(divToDelete);
             storedProducts.splice(i, 1);
             break;
@@ -154,49 +177,65 @@ function displayProduct(productInfo, product, mainContainer) {
     mainContainer.appendChild(containerDiv);
 }
 
+async function getTotalPrice(storedProducts)
+{
+    var price = 0;
+    var dataApi;
+
+    for (var i = 0; i < storedProducts.length; i++) {
+        dataApi = await getSpecificProduct(storedProducts[i].id);
+        price += (dataApi.price * storedProducts[i].amount);
+    }
+    return price;
+}
+
 function displayForm(storedProducts, mainContainer)
 {
     const formContainer = document.createElement('div');
+    var totalPrice = 0;
 
     formContainer.className = 'summaryCart';
     if (storedProducts.length === 0) {
         return;
     }
-    formContainer.innerHTML =
-        `<div class="formContact">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" required>
-            <label for="prenom">Prénom</label>
-            <input type="text" id="prenom" name="prenom" required>
-            <label for="adresse">Adresse</label>
-            <input type="text" id="adresse" name="adresse" required>
-            <label for="rue">Nom de rue</label>
-            <input type="text" id="rue" name="rue" required>
-        </div>
-        <div class="orderSummary">
-            <div class="boxDetails">
-                <p class="cartTitle">Panier</p>
-                <p class="totalProductsPrice">${0} €</p>
+    getTotalPrice(storedProducts).then(price => {
+        totalPrice = price;
+        formContainer.innerHTML =
+            `<div class="formContact">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" required>
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" name="prenom" required>
+                <label for="adresse">Adresse</label>
+                <input type="text" id="adresse" name="adresse" required>
+                <label for="rue">Nom de rue</label>
+                <input type="text" id="rue" name="rue" required>
             </div>
-            <hr>
-            <div class="boxDetails">
-                <i class="fa-solid fa-shop"></i>
-                <p>Gratuit</p>
-            </div>
-            <div class="boxDetails">
-                <i class="fa-solid fa-truck"></i>
-                <p>Gratuit</p>
-            </div>
-            <hr>
-            <div class="boxDetails">
-                <p class="cartTitle">TOTAL</p>
-                <p class="totalProductsPrice">${0} €</p>
-            </div>
-            <button>Validation du panier</button>
-        </div>`;
-    mainContainer.appendChild(formContainer);
+            <div class="orderSummary">
+                <div class="boxDetails">
+                    <p class="cartTitle">Panier</p>
+                    <p class="totalProductsPrice">${totalPrice} €</p>
+                </div>
+                <hr>
+                <div class="boxDetails">
+                    <i class="fa-solid fa-shop"></i>
+                    <p>Gratuit</p>
+                </div>
+                <div class="boxDetails">
+                    <i class="fa-solid fa-truck"></i>
+                    <p>Gratuit</p>
+                </div>
+                <hr>
+                <div class="boxDetails">
+                    <p class="cartTitle">TOTAL</p>
+                    <p class="totalProductsPrice">${totalPrice} €</p>
+                </div>
+                <button>Validation du panier</button>
+            </div>`;
+        mainContainer.appendChild(formContainer);
+    });
 }
 
 async function displayCart() {
