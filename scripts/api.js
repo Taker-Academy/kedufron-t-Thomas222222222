@@ -1,13 +1,13 @@
 const url = "https://api.kedufront.juniortaker.com";
 
-function getSpecificProduct(storedProducts) {
-    axios.get(url + '/item/' + storedProducts.id)
-    .then(response => {
-        displayProduct(response.data.item, storedProducts);
-    })
-    .catch(error => {
-        console.error(error);
-    });
+function getSpecificProduct(id) {
+    return axios.get(url + '/item/' + id)
+        .then(response => {
+            return response.data.item;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
 
 /**

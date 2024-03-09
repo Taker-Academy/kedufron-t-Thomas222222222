@@ -1,6 +1,6 @@
 // Add product
 function createLocalStorage(_id) {
-    var firstObject = [{id: _id, quantity: 1}];
+    var firstObject = [{id: _id, amount: 1}];
 
     localStorage.setItem('cart', JSON.stringify(firstObject));
 }
@@ -24,11 +24,11 @@ function addProduct(_id) {
     if (productExist(_id, storedProducts) === true) {
         for (var i = 0; i < storedProducts.length; i++) {
             if (storedProducts[i].id === _id) {
-                storedProducts[i].quantity = storedProducts[i].quantity + 1;
+                storedProducts[i].amount = storedProducts[i].amount + 1;
             }
         }
     } else {
-        new_product = {id: _id, quantity: 1};
+        new_product = {id: _id, amount: 1};
         storedProducts.push(new_product);
     }
     localStorage.setItem('cart', JSON.stringify(storedProducts));
@@ -50,10 +50,10 @@ function removeQuantityOfProduct(productInfo) {
     var totalPrice = document.querySelector('.priceTotal' + productInfo._id);
 
     for (var i = 0; i < storedProducts.length; i++) {
-        if (storedProducts[i].id === productInfo._id && storedProducts[i].quantity > 0) {
-            storedProducts[i].quantity -= 1;
-            inputPrice.value = storedProducts[i].quantity;
-            totalPrice.textContent = `${productInfo.price * storedProducts[i].quantity} €`;
+        if (storedProducts[i].id === productInfo._id && storedProducts[i].amount > 0) {
+            storedProducts[i].amount -= 1;
+            inputPrice.value = storedProducts[i].amount;
+            totalPrice.textContent = `${productInfo.price * storedProducts[i].amount} €`;
             break;
         }
     }
@@ -67,9 +67,9 @@ function addQuantityOfProduct(productInfo) {
 
     for (var i = 0; i < storedProducts.length; i++) {
         if (storedProducts[i].id === productInfo._id) {
-            storedProducts[i].quantity += 1;
-            inputPrice.value = storedProducts[i].quantity;
-            totalPrice.textContent = `${productInfo.price * storedProducts[i].quantity} €`;
+            storedProducts[i].amount += 1;
+            inputPrice.value = storedProducts[i].amount;
+            totalPrice.textContent = `${productInfo.price * storedProducts[i].amount} €`;
             break;
         }
     }
@@ -79,6 +79,7 @@ function addQuantityOfProduct(productInfo) {
 function removeProductInCart(productInfo) {
     var storedProducts = JSON.parse(localStorage.getItem('cart'));
     var divToDelete = document.querySelector('.product' + productInfo._id);
+    var divForm = document.querySelector('.formCart');
 
     for (var i = 0; i < storedProducts.length; i++) {
         if (storedProducts[i].id === productInfo._id) {
@@ -87,6 +88,8 @@ function removeProductInCart(productInfo) {
             break;
         }
     }
+    if (storedProducts.length === 0)
+        divForm.parentNode.removeChild(divForm);
     localStorage.setItem('cart', JSON.stringify(storedProducts));
 }
 
@@ -110,7 +113,7 @@ function createInfoProduct(productInfo, product) {
     });
 
     entryPrice.className = 'entryQuantity' + productInfo._id;
-    entryPrice.value = product.quantity;
+    entryPrice.value = product.amount;
 
     iconPlus.className = 'fa-solid fa-plus';
     buttonPlus.className = 'plus';
@@ -120,7 +123,7 @@ function createInfoProduct(productInfo, product) {
     });
 
     price.className = 'priceTotal' + productInfo._id;
-    price.textContent = `${productInfo.price * product.quantity} €`;
+    price.textContent = `${productInfo.price * product.amount} €`;
 
     RemoveIcon.className = 'fa-solid fa-xmark';
     RemoveIcon.addEventListener('click', function() {
@@ -135,8 +138,7 @@ function createInfoProduct(productInfo, product) {
     return dataDiv;
 }
 
-function displayProduct(productInfo, product) {
-    const mainContainer = document.querySelector('.cartPage');
+function displayProduct(productInfo, product, mainContainer) {
     const containerDiv = document.createElement('div');
     const imgProduct = document.createElement('img');
     const name = document.createElement('p');
@@ -152,13 +154,33 @@ function displayProduct(productInfo, product) {
     mainContainer.appendChild(containerDiv);
 }
 
-function displayCart() {
-    var storedProducts = JSON.parse(localStorage.getItem('cart'));
+function displayForm(storedProducts, mainContainer)
+{
+    const formContainer = document.createElement('div');
 
-    if (storedProducts === null) {
+    if (storedProducts.length === 0) {
+        return;
+    }
+    formContainer.innerHTML =
+        `<div class="formCart">
+            <p>Bonjour à tous</p>
+        </div>`;
+    mainContainer.appendChild(formContainer);
+}
+
+async function displayCart() {
+    const mainContainer = document.querySelector('.cartPage');
+    var storedProducts = JSON.parse(localStorage.getItem('cart'));
+    var product;
+
+    if (storedProducts.length === 0) {
         return;
     }
     for (var i = 0; i < storedProducts.length; i++) {
-        getSpecificProduct(storedProducts[i]);
+        product = await getSpecificProduct(storedProducts[i].id);
+        if (product) {
+            displayProduct(product, storedProducts[i], mainContainer);
+        }
     }
+    displayForm(storedProducts, mainContainer);
 }
