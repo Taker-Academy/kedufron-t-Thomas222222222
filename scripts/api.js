@@ -25,3 +25,13 @@ function getData() {
         console.error("Error : " + error);
     });
 }
+
+function sendOrder(data) {
+    axios.post(url + "/order/", data)
+        .then(response => {
+            alert(`Votre id de commande : ${response.data.command_id}`);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}

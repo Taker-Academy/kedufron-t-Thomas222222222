@@ -192,6 +192,8 @@ async function getTotalPrice(storedProducts)
 function displayForm(storedProducts, mainContainer)
 {
     const formContainer = document.createElement('div');
+    var form;
+    var validateButton;
     var totalPrice = 0;
 
     formContainer.className = 'summaryCart';
@@ -201,7 +203,7 @@ function displayForm(storedProducts, mainContainer)
     getTotalPrice(storedProducts).then(price => {
         totalPrice = price;
         formContainer.innerHTML =
-            `<div class="formContact">
+            `<form class="formContact" id="formContact">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
                 <label for="nom">Nom</label>
@@ -212,7 +214,7 @@ function displayForm(storedProducts, mainContainer)
                 <input type="text" id="adresse" name="adresse" required>
                 <label for="rue">Nom de rue</label>
                 <input type="text" id="rue" name="rue" required>
-            </div>
+            </form>
             <div class="orderSummary">
                 <div class="boxDetails">
                     <p class="cartTitle">Panier</p>
@@ -232,9 +234,17 @@ function displayForm(storedProducts, mainContainer)
                     <p class="cartTitle">TOTAL</p>
                     <p class="totalProductsPrice">${totalPrice} €</p>
                 </div>
-                <button>Validation du panier</button>
+                <button form="formContact" class="validateButton">Validation du panier</button>
             </div>`;
         mainContainer.appendChild(formContainer);
+        validateButton = document.querySelector('.validateButton');
+        validateButton.addEventListener('click', function(event) {
+            form = document.getElementById('formContact');
+            event.preventDefault();
+            if (form.checkValidity()) {
+                validateCart();
+            }
+        });
     });
 }
 
