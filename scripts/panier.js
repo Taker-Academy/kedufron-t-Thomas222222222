@@ -1,10 +1,21 @@
 // Add product
+
+/**
+ * Function to create first value of localStorage
+ * @param {number} _id - id of product
+ */
 function createLocalStorage(_id) {
     var firstObject = [{id: _id, amount: 1}];
 
     localStorage.setItem('cart', JSON.stringify(firstObject));
 }
 
+/**
+ * Function to check if a product already exist
+ * @param {number} id - id of product
+ * @param {Object} storedProducts - All products already stored
+ * @returns {Boolean}
+ */
 function productExist(id, storedProducts) {
     if (storedProducts === null) {
         return false;
@@ -17,6 +28,10 @@ function productExist(id, storedProducts) {
     return false;
 }
 
+/**
+ * Function to add a product in the localStorage
+ * @param {number} _id - id of product
+ */
 function addProduct(_id) {
     var storedProducts = JSON.parse(localStorage.getItem('cart'));
     var new_product;
@@ -34,8 +49,11 @@ function addProduct(_id) {
     localStorage.setItem('cart', JSON.stringify(storedProducts));
 }
 
+/**
+ * Function to create or add a product in the cart
+ * @param {number} id - id of product
+ */
 function addProductToCart(id) {
-    // localStorage.clear();
     if (localStorage.getItem('cart') !== null) {
         addProduct(id);
     } else {
@@ -44,6 +62,11 @@ function addProductToCart(id) {
 }
 
 // Display cart
+
+/**
+ * Function to increase the total price of the cart
+ * @param {number} addPrice - total price of product
+ */
 function increaseTotalPrice(addPrice)
 {
     var paragraphTotalPrice = document.querySelectorAll('.totalProductsPrice');
@@ -54,6 +77,10 @@ function increaseTotalPrice(addPrice)
     });
 }
 
+/**
+ * Function to reduce the total price of the cart
+ * @param {number} removedPrice - total price of product
+ */
 function reduceTotalPrice(removedPrice)
 {
     var paragraphTotalPrice = document.querySelectorAll('.totalProductsPrice');
@@ -64,6 +91,10 @@ function reduceTotalPrice(removedPrice)
     });
 }
 
+/**
+ * Function to remove quantities of specific product
+ * @param {Object} productInfo - Object with product information
+ */
 function removeQuantityOfProduct(productInfo) {
     var storedProducts = JSON.parse(localStorage.getItem('cart'));
     var inputPrice = document.querySelector('.entryQuantity' + productInfo._id);
@@ -81,6 +112,10 @@ function removeQuantityOfProduct(productInfo) {
     localStorage.setItem('cart', JSON.stringify(storedProducts));
 }
 
+/**
+ * Function to add quantities of specific product
+ * @param {Object} productInfo - Object with product information
+ */
 function addQuantityOfProduct(productInfo) {
     var storedProducts = JSON.parse(localStorage.getItem('cart'));
     var inputPrice = document.querySelector('.entryQuantity' + productInfo._id);
@@ -98,6 +133,10 @@ function addQuantityOfProduct(productInfo) {
     localStorage.setItem('cart', JSON.stringify(storedProducts));
 }
 
+/**
+ * Function to remove specific product of the cart
+ * @param {Object} productInfo - Object with product information
+ */
 function removeProductInCart(productInfo) {
     var storedProducts = JSON.parse(localStorage.getItem('cart'));
     var divToDelete = document.querySelector('.product' + productInfo._id);
@@ -116,6 +155,12 @@ function removeProductInCart(productInfo) {
     localStorage.setItem('cart', JSON.stringify(storedProducts));
 }
 
+/**
+ * Function to creat div of a specific product in the cart
+ * @param {Object} productInfo - Object with product information
+ * @param {Object} product - Object of localStorage
+ * @returns {HTMLDivElement}
+ */
 function createInfoProduct(productInfo, product) {
     const dataDiv = document.createElement('div');
     const buttonMinus = document.createElement('button');
@@ -161,6 +206,12 @@ function createInfoProduct(productInfo, product) {
     return dataDiv;
 }
 
+/**
+ * Function to display a product in the cart
+ * @param {Object} productInfo - Object with product information
+ * @param {Object} product - Object of localStorage
+ * @param {HTMLDivElement} mainContainer - Main div element
+ */
 function displayProduct(productInfo, product, mainContainer) {
     const containerDiv = document.createElement('div');
     const imgProduct = document.createElement('img');
@@ -177,6 +228,11 @@ function displayProduct(productInfo, product, mainContainer) {
     mainContainer.appendChild(containerDiv);
 }
 
+/**
+ * Function to get total price of the cart
+ * @param {Object} storedProducts - Object of data in localStorage
+ * @returns {number}
+ */
 async function getTotalPrice(storedProducts)
 {
     var price = 0;
@@ -189,6 +245,12 @@ async function getTotalPrice(storedProducts)
     return price;
 }
 
+/**
+ * Function to display form
+ * @param {Object} storedProducts - Object of data in localStorage
+ * @param {HTMLDivElement} mainContainer - Main div element
+ * @returns
+ */
 function displayForm(storedProducts, mainContainer)
 {
     const formContainer = document.createElement('div');
@@ -247,6 +309,10 @@ function displayForm(storedProducts, mainContainer)
     });
 }
 
+/**
+ * Function to display all elements of the cart
+ * @returns
+ */
 async function displayCart() {
     const mainContainer = document.querySelector('.cartPage');
     var storedProducts = JSON.parse(localStorage.getItem('cart'));
