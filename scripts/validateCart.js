@@ -1,3 +1,8 @@
+/**
+ * Function to check validity of email
+ * @param {string} email - Client email
+ * @returns {number}
+ */
 function checkValidityAddress(email) {
     var i = 0;
 
@@ -8,6 +13,11 @@ function checkValidityAddress(email) {
     return -1;
 }
 
+/**
+ * Function to submit data of user and cart
+ * @param {event} event - Event of submit order
+ * @returns
+ */
 function validateCart(event) {
     var storedCartInfo;
     const email = document.getElementById('email');
