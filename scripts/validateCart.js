@@ -8,7 +8,7 @@ function checkValidityAddress(email) {
     return -1;
 }
 
-function validateCart() {
+function validateCart(event) {
     var storedCartInfo;
     const email = document.getElementById('email');
     const name = document.getElementById('nom');
@@ -23,7 +23,8 @@ function validateCart() {
         alert('Adresse invalid !');
         return;
     }
-    var storedCartInfo = {
+    event.preventDefault();
+    storedCartInfo = {
         "email": email.value,
         "name": name.value,
         "address": address.value,

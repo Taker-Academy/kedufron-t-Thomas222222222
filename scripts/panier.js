@@ -240,9 +240,8 @@ function displayForm(storedProducts, mainContainer)
         validateButton = document.querySelector('.validateButton');
         validateButton.addEventListener('click', function(event) {
             form = document.getElementById('formContact');
-            event.preventDefault();
             if (form.checkValidity()) {
-                validateCart();
+                validateCart(event);
             }
         });
     });
